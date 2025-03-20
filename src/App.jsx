@@ -4,6 +4,7 @@ import Home from './Layout/Home'
 import Jobs from './Layout/Jobs'
 import Addjobs from './Layout/Addjobs'
 import JobPage from './component/JobPage'
+import Editjob from './component/Editjob'
 
 function App() {
  
@@ -25,6 +26,24 @@ async function deleteFormData(jobId){
   })
   alert("Deleted succeesfully")
 }
+async function editFormData(updatedFormData) {
+  try {
+    let {id} = updatedFormData
+  const res = await fetch(`http://localhost:8000/jobs/${id}` , {
+    method: 'PUT',
+    headers:{
+      'Content-Type':"application/json"
+    },
+    body:JSON.stringify(updatedFormData)
+  })
+  const data = await res.json()
+  console.log(data);
+  } catch (error) {
+    console.log("Error in  app page updated section",error);
+  }
+  
+  return
+}
 
   return (
     <>
@@ -32,6 +51,7 @@ async function deleteFormData(jobId){
     <Route index element = {<Home/>} />
     <Route path='/jobs' element = {<Jobs/>} />
     <Route path='/jobs/:id' element = {<JobPage deleteFormData={deleteFormData} />} />
+    <Route path='/edit-jobs/:id' element = {<Editjob addJobUpdatedSubmit = {editFormData} />} />
     <Route path='/addjobs' element= {<Addjobs addJobSubmit = {addJob} />}/>
    </Routes>
     </>
