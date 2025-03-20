@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { FaMapMarker } from 'react-icons/fa'
+import { Link } from 'react-router'
+// Link
 
-const Jobcard = ({type,title,description,location,salary}) => {
+const Jobcard = ({type,title,description,location,salary,id}) => {
     let [descr,setFullDescr] = useState(false)
     function changeDescription(){
        setFullDescr((prevState)=>{
@@ -11,8 +13,6 @@ const Jobcard = ({type,title,description,location,salary}) => {
  if(!descr){
     description = description.substring(0,90) + "..."
 }
-
-
   return (
     <>
      <div className="bg-white rounded-xl shadow-md relative">
@@ -33,12 +33,12 @@ const Jobcard = ({type,title,description,location,salary}) => {
                 <FaMapMarker className='inline text-lg mb-1 mr-2'/>
                  {location}
                 </div>
-                <a
-                  href="job.html"
+                <Link
+                  to={`/jobs/${id}`}
                   className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
                 >
                  Read More
-                </a>
+                </Link>
               </div>
             </div>
           </div>
